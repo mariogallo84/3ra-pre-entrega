@@ -2,6 +2,7 @@ from django.shortcuts import render
 from AppCoder.models import Curso
 from django.http import HttpResponse
 from django.template import loader
+from AppCoder.forms import Curso_formulario
 
 # Create your views here.
 
@@ -24,3 +25,25 @@ def ver_cursos(request):
 
 def alumnos(request):
     return render(request , "alumnos.html")
+
+def curso_formulario(request):
+    if request.method == "POST":
+        mi_formulario = Curso_formulario(request.POST)
+        if mi_formulario.is_valid():
+            datos = mi_formulario.cleaned_data
+            curso = Curso( nombre=datos["nombre"], camada=datos["camada"] )
+            curso.save()
+            return render(request , "formulario.html")
+
+    return render(request , "formulario.html")
+
+def buscar_curso(request):
+    return render(request, "buscar_curso.html")
+
+def buscar(request):
+    if request.GET["nombre"]:
+        nombre = request.GET["nombre"]
+        cursos = Curso.objects.filter(nombre__icontains=nombre)
+        return render( request , "resultado_busqueda.html" , {"cursos": cursos})
+    else:
+        return HttpResponse ("Ingrese el nombre del curso")
