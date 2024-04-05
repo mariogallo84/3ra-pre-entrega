@@ -1,25 +1,24 @@
-
 {% extends "padre.html" %}
 
 {% load static %}
 
 {% block contenido %}
     <main class="container">
-        <h1 class="text-xl-center title"> Alumnos </h1>
+        <h1 class="text-xl-center title"> Profesores </h1>
         <table class="table">
             <thead>
                 <tr>
                     <th>id</th>
                     <th>nombre</th>
-                    <th>legajo</th>
+                    <th>matricula</th>
                 </tr>
             </thead>
             <tbody>
-                {% for n in alumno %}
+                {% for n in profesor %}
             <tr>
                 <th scope="row">{{n.id}}</th>
                 <td>{{n.nombre}}</td>
-                <td>{{n.legajo}}</td>
+                <td>{{n.matricula}}</td>
             </tr>
     
                 {% endfor %}
