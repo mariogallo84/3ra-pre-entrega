@@ -13,7 +13,8 @@ urlpatterns = [
     path("buscar_alumno", views.buscar_alumno),
     path("alta_profesor", views.profesor_formulario),
     path("buscar_profesor", views.buscar_profesor),
-    path("buscar", views.buscar)
-
+    path("buscar", views.buscar),
+    path("elimina_curso/<int:id>" , views.elimina_curso , name="elimina_curso"),
+    path("editar_curso/<int:id>", views.editar , name="editar_curso")
    
 ]

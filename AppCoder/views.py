@@ -131,3 +131,33 @@ def buscar_profesores(request):
         return render( request , "resultado_busqueda_profesores.html" , {"profesores": profesores})
     else:
         return HttpResponse ("Ingrese el nombre del profesor")
+    
+
+def elimina_curso(request , id ):
+    curso = Curso.objects.get(id=id)
+    curso.delete()
+
+    curso = Curso.objects.all()
+
+    return render(request , "cursos.html" , {"cursos":curso})
+
+
+def editar(request, id):
+    curso = Curso.objects.get(id=id)
+
+    if request.method =="POST":
+        mi_formulario = Curso_formulario( request.POST)
+        if mi_formulario.is_valid():
+            datos = mi_formulario.cleaned_data
+            curso.nombre = datos["nombre"]
+            curso.camada = datos["camada"]
+            curso.save()
+
+            curso = Curso.objects.all()
+
+            return render(request , "cursos.html" , {"cursos": curso})
+        
+    else:
+        mi_formulario = Curso_formulario(initial={"nombre": curso.nombre, "camada": curso.camada})
+    return render (request , "editar_curso.html" , {"mi_formulario": mi_formulario , "curso":curso})
+    
