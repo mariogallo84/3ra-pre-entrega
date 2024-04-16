@@ -1,0 +1,15 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block contenido %}
+    <h2>Editar Perfil {{suuario}} </h2>
+    <form action="">
+        {% csrf_token %}
+        <table>
+            {{miFormulario.as_table}}
+        </table>
+        <button>Enviar</button>
+    </form>
+
+{% endblock %}
