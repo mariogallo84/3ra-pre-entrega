@@ -201,8 +201,19 @@ def register(request):
 def editarPerfil(request):
     usuario = request.user
     if request.method == "POST":
-        pass
+        mi_formulario = UserEditForm(request.POST)
+        if mi_formulario.is_valid():
+            informacion = mi_formulario.cleaned_data
+            usuario.email = informacion["email"]
+            password = informacion ["password1"]
+            usuario.set_password(password)
+            usuario.save()
+            return render(request, "inicio.html")
+        
+
+
     else:
         miFormulario = UserEditForm(initial={'email': usuario.email})
 
     return render( request, "editar_perfil.html", {"miFormulario": miFormulario, "usuario":usuario})
+
