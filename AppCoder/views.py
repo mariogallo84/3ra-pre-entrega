@@ -25,10 +25,9 @@ def alta_curso(request,nombre):
 @login_required
 def ver_cursos(request):
     cursos = Curso.objects.all()
-    dicc = {"cursos": cursos}
-    plantilla = loader.get_template("cursos.html")
-    documento = plantilla.render(dicc)
-    return HttpResponse(documento)
+    avatares = Avatar.objects.filter(user=request.user.id)
+
+    return render(request, "alumnos.html", {"url":avatares[0].imagen.url, "cursos":cursos})
 
 def curso_formulario(request):
     if request.method == "POST":
@@ -58,7 +57,8 @@ def buscar(request):
 
 
 def alumnos(request):
-    return render(request , "alumnos.html")
+    avatares = Avatar.objects.filter(user=request.user.id)
+    return render(request , "alumnos.html", {"url":avatares[0].imagen.url} )
 
 def alta_alumno(request,nombre):
     alumno = Alumno(nombre=nombre, legajo=234512)
