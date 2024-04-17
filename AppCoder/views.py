@@ -206,7 +206,7 @@ def editarPerfil(request):
             informacion = mi_formulario.cleaned_data
             usuario.email = informacion["email"]
             password = informacion ["password1"]
-            usuario.set_password(password)
+            usuario.set_password(informacion["password1"])
             usuario.save()
             return render(request, "inicio.html")
         
