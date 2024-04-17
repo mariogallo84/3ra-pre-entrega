@@ -3,8 +3,8 @@
 {% load static %}
 
 {% block contenido %}
-    <h2>Editar Perfil {{suuario}} </h2>
-    <form action="">
+    <h2>Editar Perfil {{usuario}} </h2>
+    <form action="" method="POST">
         {% csrf_token %}
         <table>
             {{miFormulario.as_table}}
